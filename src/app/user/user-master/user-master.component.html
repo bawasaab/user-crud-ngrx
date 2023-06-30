@@ -1,1 +1,18 @@
-<p>user-master works!</p>
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+
+  <div class="container">
+    <label for="firstname"><b>FirstName</b></label>
+    <input type="text" placeholder="Enter FirstName" formControlName="firstname">
+    <div *ngIf="isSubmitted && f['firstname'].errors" class="err">
+      <div *ngIf="f['firstname'].errors['required']"><b>FirstName is required</b></div>
+    </div>
+
+    <label for="lastname"><b>LastName</b></label>
+    <input type="text" placeholder="Enter LastName" formControlName="lastname">
+    <div *ngIf="isSubmitted && f['lastname'].errors" class="err">
+      <div *ngIf="f['lastname'].errors['required']"><b>LastName is required</b></div>
+    </div>
+
+    <button type="submit">Save</button>
+  </div>
+</form>
