@@ -4,9 +4,9 @@
     <th>LastName</th>
     <th>Action</th>
   </tr>
-  <tr>
-    <td>DeepakTEST</td>
-    <td>BawaTEST</td>
+  <tr *ngFor="let user of $users | async; index as i" (click)="selectUser(user)">
+    <td>{{ user.firstname }}</td>
+    <td>{{ user.lastname }}</td>
     <td>&nbsp;</td>
   </tr>
 </table>

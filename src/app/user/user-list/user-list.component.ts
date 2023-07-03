@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UserModel } from '../state/user.model';
-// import { getUsers } from '../state/user.reducers';
+import { getUserList } from '../state/user.reducers';
 import { Observable } from 'rxjs';
+import { setCurrentUserAction } from '../state/user.action';
 
 @Component({
   selector: 'app-user-list',
@@ -10,17 +11,17 @@ import { Observable } from 'rxjs';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  // $users!: Observable<UserModel[]>
-  $users!: UserModel[]
+  $users!: Observable<UserModel[]>
 
   constructor(
     private store: Store<UserModel>
   ) {}
 
-    ngOnInit() {
-      // this.store.select(getUsers).subscribe((state) => {
-      //   console.log('users', state)
-      //   // this.$users = users
-      // })
-    }
+  ngOnInit() {
+    this.$users = this.store.select(getUserList)
+  }
+
+  selectUser(user: UserModel) {
+    this.store.dispatch(setCurrentUserAction({user}))
+  }
 }
