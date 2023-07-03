@@ -1,6 +1,7 @@
 import { AppStateModel } from "src/app/state/app-state.model";
 
 export interface UserModel {
+  id: number;
   firstname: String;
   lastname: String;
 }

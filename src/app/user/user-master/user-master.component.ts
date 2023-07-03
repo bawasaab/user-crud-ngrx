@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { saveUserAction, setCurrentUserAction } from '../state/user.action';
+import { saveUserAction, updateUserAction } from '../state/user.action';
 import { UserModel } from '../state/user.model';
-import { Observable } from 'rxjs';
 import { getCurrentUser } from '../state/user.reducers';
 
 @Component({
@@ -16,6 +15,8 @@ export class UserMasterComponent implements OnInit {
   form!: FormGroup;
   isSubmitted = false;
   user!: UserModel;
+  cnt: number = 1
+  uid: number = 0
 
   constructor(
     private store: Store<UserModel>,
@@ -23,6 +24,7 @@ export class UserMasterComponent implements OnInit {
   ) {
 
     this.form = formbuilder.group({
+      id: [],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required]
     }
@@ -33,7 +35,10 @@ export class UserMasterComponent implements OnInit {
     this.store.select(getCurrentUser).subscribe((inUser) => {
       console.log('ngOnInit user master', inUser)
       this.user = inUser
-      this.patchUser(this.user)
+      if(this.user) {
+        this.uid = this.user.id
+        this.patchUser(this.user)
+      }
     })
   }
 
@@ -47,13 +52,19 @@ export class UserMasterComponent implements OnInit {
     this.isSubmitted = true;
     console.log('this.frmValues', this.frmValues);
     console.log( 'this.f', this.f );
-    this.store.dispatch(saveUserAction({user: this.frmValues}))
+    if(this.uid > 0) {
+      this.store.dispatch(updateUserAction({user: this.frmValues}))
+    } else {
+      this.frmValues['id'] = this.cnt++
+      this.store.dispatch(saveUserAction({user: this.frmValues}))
+    }
     this.isSubmitted = false;
     this.form.reset()
   }
 
   patchUser(user: UserModel) {
     this.form.patchValue({
+      id: user.id,
       firstname: user.firstname,
       lastname: user.lastname
     })
