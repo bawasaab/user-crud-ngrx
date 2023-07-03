@@ -4,9 +4,11 @@
     <th>LastName</th>
     <th>Action</th>
   </tr>
-  <tr *ngFor="let user of $users | async; index as i" (click)="selectUser(user)">
+  <tr *ngFor="let user of $users | async; index as i" (dblclick)="selectUser(user)">
     <td>{{ user.firstname }}</td>
     <td>{{ user.lastname }}</td>
-    <td>&nbsp;</td>
+    <td>
+      <button (click)="deleteUser(user)">Delete</button>
+    </td>
   </tr>
 </table>

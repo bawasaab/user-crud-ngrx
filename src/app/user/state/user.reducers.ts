@@ -1,7 +1,6 @@
-import { createAction, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
+import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import { UserModel, UserStateModel } from './user.model';
-import { saveUserAction, setCurrentUserAction, updateUserAction } from "./user.action";
-import { state } from "@angular/animations";
+import { deleteUserAction, saveUserAction, setCurrentUserAction, updateUserAction } from "./user.action";
 
 const initialUserState: UserStateModel = {
   currentUser: {
@@ -26,9 +25,6 @@ export const getCurrentUser = createSelector(
 export const userReducer = createReducer<UserStateModel>(
   initialUserState,
   on(setCurrentUserAction, (state, action): UserStateModel => {
-    // console.log('inside userReducer')
-    // console.log('inside userReducer state', state)
-    // console.log('inside userReducer action', JSON.stringify(action))
     return {
       ...state,
       currentUser: action.user
@@ -41,19 +37,17 @@ export const userReducer = createReducer<UserStateModel>(
     }
   }),
   on(updateUserAction, (state, action): UserStateModel => {
-    console.log('state', state)
-    console.log('action', action)
-    // const updateUser = state.usersList.map((item) => action.user.id === item.id ? action.user : item)
-    const updateUser = state.usersList.map((item) => {
-      console.log('action', action)
-      console.log('action.user.id', action.user.id)
-      console.log('item.id', item.id)
-      return action.user.id === item.id ? action.user : item
-    })
-    console.log('updateUser', updateUser)
+    const updateUser = state.usersList.map((item) => action.user.id === item.id ? action.user : item)
     return {
       ...state,
       usersList: updateUser
+    }
+  }),
+  on(deleteUserAction, (state, action): UserStateModel => {
+    const remainaingUsers = state.usersList.filter((item) => action.user.id !== item.id ? item : '')
+    return {
+      ...state,
+      usersList: remainaingUsers
     }
   })
 )

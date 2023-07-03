@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { UserModel } from '../state/user.model';
 import { getUserList } from '../state/user.reducers';
 import { Observable } from 'rxjs';
-import { setCurrentUserAction } from '../state/user.action';
+import { setCurrentUserAction, deleteUserAction } from '../state/user.action';
 
 @Component({
   selector: 'app-user-list',
@@ -23,5 +23,9 @@ export class UserListComponent implements OnInit {
 
   selectUser(user: UserModel) {
     this.store.dispatch(setCurrentUserAction({user}))
+  }
+
+  deleteUser(user: UserModel) {
+    this.store.dispatch(deleteUserAction({user}))
   }
 }

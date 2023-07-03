@@ -33,7 +33,6 @@ export class UserMasterComponent implements OnInit {
 
   ngOnInit() {
     this.store.select(getCurrentUser).subscribe((inUser) => {
-      console.log('ngOnInit user master', inUser)
       this.user = inUser
       if(this.user) {
         this.uid = this.user.id
@@ -50,8 +49,6 @@ export class UserMasterComponent implements OnInit {
 
   handleSubmit() {
     this.isSubmitted = true;
-    console.log('this.frmValues', this.frmValues);
-    console.log( 'this.f', this.f );
     if(this.uid > 0) {
       this.store.dispatch(updateUserAction({user: this.frmValues}))
     } else {
