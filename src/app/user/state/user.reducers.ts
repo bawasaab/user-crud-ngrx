@@ -1,5 +1,5 @@
 import { createAction, createReducer, on } from "@ngrx/store";
-import { UserModel } from "../user.model";
+import { UserModel } from "./user.model";
 import { saveUserAction } from "./user.action";
 
 const initialUserState: UserModel = {
@@ -12,10 +12,10 @@ export const userReducer = createReducer<UserModel>(
   on(saveUserAction, (state, inData): UserModel => {
     console.log('inside userReducer')
     console.log('inside userReducer state', state)
-    console.log('inside userReducer inData', inData)
+    console.log('inside userReducer inData', JSON.stringify(inData))
     return {
       ...state,
-      ...inData
+      ...inData.user
     }
   })
 )

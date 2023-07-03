@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { saveUserAction } from '../state/user.action';
+import { UserModel } from '../state/user.model';
 
 @Component({
   selector: 'app-user-master',
@@ -14,7 +15,7 @@ export class UserMasterComponent {
   isSubmitted = false;
 
   constructor(
-    private store: Store<any>,
+    private store: Store<UserModel>,
     private formbuilder: FormBuilder
   ) {
 
@@ -29,13 +30,13 @@ export class UserMasterComponent {
 	get f() { return this.form.controls; }
 
   // convenience getter for easy access to form values
-  get frmValues() { return this.form.value; }
+  get frmValues(): UserModel { return this.form.value; }
 
   handleSubmit() {
     this.isSubmitted = true;
     console.log('this.frmValues', this.frmValues);
     console.log( 'this.f', this.f );
-    this.store.dispatch(saveUserAction(this.frmValues))
+    this.store.dispatch(saveUserAction({user: this.frmValues}))
   }
 
 

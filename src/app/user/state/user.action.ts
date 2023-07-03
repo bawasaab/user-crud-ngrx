@@ -1,4 +1,4 @@
 import { createAction, props } from "@ngrx/store";
-import { UserModel } from "../user.model";
+import { UserModel } from "./user.model";
 
-export const saveUserAction = createAction('[UserMater] Save user', props<UserModel>())
+export const saveUserAction = createAction('[UserMater] Save user', props<{user: UserModel}>())

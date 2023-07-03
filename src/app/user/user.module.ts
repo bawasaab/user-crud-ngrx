@@ -7,12 +7,14 @@ import { UserListComponent } from './user-list/user-list.component';
 import { StoreModule } from '@ngrx/store';
 import { userReducer } from './state/user.reducers';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserShellComponent } from './user-shell/user-shell.component';
 
 
 @NgModule({
   declarations: [
     UserMasterComponent,
-    UserListComponent
+    UserListComponent,
+    UserShellComponent
   ],
   imports: [
     CommonModule,

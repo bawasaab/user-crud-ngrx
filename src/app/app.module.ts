@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { appReducer } from './state/app-state.reducers';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({'appState': appReducer}, {}),
     StoreDevtoolsModule.instrument({
       name: 'NGRX USER CRUD',
       maxAge: 25,
