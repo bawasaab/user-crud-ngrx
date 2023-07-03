@@ -1,10 +1,12 @@
 <table>
   <tr>
+    <th>ID</th>
     <th>FirstName</th>
     <th>LastName</th>
     <th>Action</th>
   </tr>
   <tr *ngFor="let user of $users | async; index as i" (dblclick)="selectUser(user)">
+    <td>{{ user.id }}</td>
     <td>{{ user.firstname }}</td>
     <td>{{ user.lastname }}</td>
     <td>

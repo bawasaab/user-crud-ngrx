@@ -24,16 +24,16 @@ export const getCurrentUser = createSelector(
 
 export const userReducer = createReducer<UserStateModel>(
   initialUserState,
-  on(setCurrentUserAction, (state, action): UserStateModel => {
-    return {
-      ...state,
-      currentUser: action.user
-    }
-  }),
   on(saveUserAction, (state, action): UserStateModel => {
     return {
       ...state,
       usersList: state['usersList'].concat(action.user)
+    }
+  }),
+  on(setCurrentUserAction, (state, action): UserStateModel => {
+    return {
+      ...state,
+      currentUser: action.user
     }
   }),
   on(updateUserAction, (state, action): UserStateModel => {
