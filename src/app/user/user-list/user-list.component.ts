@@ -26,6 +26,9 @@ export class UserListComponent implements OnInit {
   }
 
   deleteUser(user: UserModel) {
-    this.store.dispatch(deleteUserAction({user}))
+    if(confirm("Are you sure ?")) {
+      this.store.dispatch(deleteUserAction({user}))
+      alert("User Deleted")
+    }
   }
 }

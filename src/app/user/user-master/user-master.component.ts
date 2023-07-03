@@ -51,9 +51,11 @@ export class UserMasterComponent implements OnInit {
     this.isSubmitted = true;
     if(this.uid > 0) {
       this.store.dispatch(updateUserAction({user: this.frmValues}))
+      alert("User Updated")
     } else {
       this.frmValues['id'] = this.cnt++
       this.store.dispatch(saveUserAction({user: this.frmValues}))
+      alert("User Inserted")
     }
     this.isSubmitted = false;
     this.form.reset()
