@@ -7,3 +7,4 @@ export const setCurrentUserAction = createAction('[UserMater] Set current user',
 export const removeCurrentUserAction = createAction('[UserMater] Remove current user')
 export const deleteUserAction = createAction('[UserList] Delete user', props<{user: UserModel}>())
 export const getUsersAction = createAction('[UserList] Get users')
+export const loadedUserSuccessAction = createAction('[UserList] Loaded user success', props<{users: UserModel[]}>())
