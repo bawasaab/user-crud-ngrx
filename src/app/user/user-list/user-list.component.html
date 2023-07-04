@@ -1,3 +1,6 @@
+<p style="color: red;" *ngIf="$error | async as errorMessage">
+  Error - {{ errorMessage }}
+</p>
 <table>
   <tr>
     <th>ID</th>

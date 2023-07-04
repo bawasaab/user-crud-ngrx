@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UserModel } from '../state/user.model';
-import { getUserList } from '../state/user.reducers';
+import { getUserList, getUserListError } from '../state/user.reducers';
 import { Observable } from 'rxjs';
-import { setCurrentUserAction, deleteUserAction, loadedUserSuccessAction, getUsersAction } from '../state/user.action';
+import { setCurrentUserAction, deleteUserAction, getUsersAction } from '../state/user.action';
 
 @Component({
   selector: 'app-user-list',
@@ -12,6 +12,7 @@ import { setCurrentUserAction, deleteUserAction, loadedUserSuccessAction, getUse
 })
 export class UserListComponent implements OnInit {
   $users!: Observable<UserModel[]>
+  $error!: Observable<String>;
 
   constructor(
     private store: Store<UserModel>
@@ -20,6 +21,7 @@ export class UserListComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(getUsersAction())
     this.$users = this.store.select(getUserList)
+    this.$error = this.store.select(getUserListError)
   }
 
   selectUser(user: UserModel) {

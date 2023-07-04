@@ -8,5 +8,7 @@ export interface UserModel {
 
 export interface UserStateModel extends AppStateModel {
   currentUser: UserModel;
+  usersListLoadedFlag: boolean;
   usersList: UserModel[];
+  error: String;
 }
