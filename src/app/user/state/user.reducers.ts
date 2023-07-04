@@ -1,6 +1,6 @@
 import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import { UserModel, UserStateModel } from './user.model';
-import { deleteUserAction, saveUserAction, setCurrentUserAction, updateUserAction } from "./user.action";
+import { deleteUserAction, saveUserAction, setCurrentUserAction, updateUserAction, removeCurrentUserAction } from "./user.action";
 
 const initialUserState: UserStateModel = {
   currentUser: {
@@ -49,5 +49,11 @@ export const userReducer = createReducer<UserStateModel>(
       ...state,
       usersList: remainaingUsers
     }
-  })
+  }),
+  on(removeCurrentUserAction, (state, action): UserStateModel => {
+    return {
+      ...state,
+      currentUser: initialUserState.currentUser
+    }
+  }),
 )

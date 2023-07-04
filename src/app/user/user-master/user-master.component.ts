@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { saveUserAction, updateUserAction } from '../state/user.action';
+import { removeCurrentUserAction, saveUserAction, updateUserAction } from '../state/user.action';
 import { UserModel } from '../state/user.model';
 import { getCurrentUser } from '../state/user.reducers';
 
@@ -52,6 +52,7 @@ export class UserMasterComponent implements OnInit {
     if(this.uid > 0) {
       this.store.dispatch(updateUserAction({user: this.frmValues}))
       alert("User Updated")
+      this.store.dispatch(removeCurrentUserAction())
     } else {
       this.frmValues['id'] = this.cnt++
       this.store.dispatch(saveUserAction({user: this.frmValues}))
