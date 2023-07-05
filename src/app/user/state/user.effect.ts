@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { UserService } from "../service/user.service";
-import { getUsersAction, loadedUserFailAction, loadedUserSuccessAction } from "./user.action";
-import { catchError, map, mergeMap, of } from "rxjs";
+import { getUsersAction, insertUserFailAction, insertUserSuccessAction, loadedUserFailAction, loadedUserSuccessAction, saveUserAction } from "./user.action";
+import { catchError, map, mergeMap, of, switchMap, withLatestFrom } from "rxjs";
 import { UserModel } from "./user.model";
 import { Store } from "@ngrx/store";
 import { getUserList, getUserListLoaded } from "./user.reducers";
@@ -35,17 +35,36 @@ export class UserEffects {
     )
   })
 
+  insertUser$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(saveUserAction),
+      withLatestFrom(this.store$),
+      switchMap(([action, storeState]) => {
+        return this.userService.insertUsers(action.user).pipe(
+          map((inUsers) => {
+            let user: UserModel = inUsers.data;
+            return insertUserSuccessAction({ user });
+          }),
+          catchError((error) => {
+            return of(insertUserFailAction({ error: error.message }));
+          })
+        );
+      }
+      )
+    )
+  })
+
   isLoaded!: boolean
   users!: UserModel[]
   constructor(
     private actions$: Actions,
     private userService: UserService,
-    private store: Store<UserModel>
+    private store$: Store<UserModel>
   ) {
-    this.store.select(getUserListLoaded).subscribe((flag) => {
+    this.store$.select(getUserListLoaded).subscribe((flag) => {
       this.isLoaded = flag
       if(this.isLoaded) {
-        this.store.select(getUserList).subscribe((users) => this.users = users)
+        this.store$.select(getUserList).subscribe((users) => this.users = users)
       }
     })
   }

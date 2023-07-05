@@ -54,7 +54,7 @@ export class UserMasterComponent implements OnInit {
       alert("User Updated")
       this.store.dispatch(removeCurrentUserAction())
     } else {
-      this.frmValues['id'] = this.cnt++
+      // this.frmValues['id'] = this.cnt
       this.store.dispatch(saveUserAction({user: this.frmValues}))
       alert("User Inserted")
     }
