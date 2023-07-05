@@ -51,4 +51,14 @@ export class UserService {
       catchError((e: Response) => throwError(e))
     );
   }
+
+  deleteUsers(inData: UserModel) {
+    const url = `http://localhost:3000/users/${inData.id}`
+    return this.httpClient
+    .delete(url)
+    .pipe(
+      map((e: any) => e),
+      catchError((e: Response) => throwError(e))
+    );
+  }
 }

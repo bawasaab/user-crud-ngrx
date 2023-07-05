@@ -1,6 +1,6 @@
 import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import { UserModel, UserStateModel } from './user.model';
-import { deleteUserAction, saveUserAction, setCurrentUserAction, updateUserAction, removeCurrentUserAction, loadedUserSuccessAction, getUsersAction, loadedUserFailAction, insertUserSuccessAction, insertUserFailAction } from "./user.action";
+import { deleteUserAction, saveUserAction, setCurrentUserAction, updateUserAction, removeCurrentUserAction, loadedUserSuccessAction, getUsersAction, loadedUserFailAction, insertUserSuccessAction, insertUserFailAction, updateUserFailAction, updateUserSuccessAction } from "./user.action";
 
 const initialUserState: UserStateModel = {
   currentUser: {
@@ -95,6 +95,23 @@ export const userReducer = createReducer<UserStateModel>(
     }
   }),
   on(insertUserFailAction, (state, action): UserStateModel => {
+    return {
+      ...state,
+      error: action.error
+    }
+  }),
+  on(updateUserSuccessAction, (state, action): UserStateModel => {
+    const updateUser = state.usersList.map((item) => {
+      // return action.user.id === item.id ? action.user : item
+      return action.user.id === item.id ? action.user : item
+    })
+    return {
+      ...state,
+      usersList: updateUser,
+      error: ''
+    }
+  }),
+  on(updateUserFailAction, (state, action): UserStateModel => {
     return {
       ...state,
       error: action.error

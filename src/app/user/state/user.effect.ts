@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { UserService } from "../service/user.service";
-import { getUsersAction, insertUserFailAction, insertUserSuccessAction, loadedUserFailAction, loadedUserSuccessAction, saveUserAction, updateUserAction, updateUserFailAction, updateUserSuccessAction } from "./user.action";
+import { deleteUserAction, deleteUserFailAction, deleteUserSuccessAction, getUsersAction, insertUserFailAction, insertUserSuccessAction, loadedUserFailAction, loadedUserSuccessAction, saveUserAction, updateUserAction, updateUserFailAction, updateUserSuccessAction } from "./user.action";
 import { catchError, map, mergeMap, of, switchMap, withLatestFrom } from "rxjs";
 import { UserModel } from "./user.model";
 import { Store } from "@ngrx/store";
@@ -66,6 +66,24 @@ export class UserEffects {
           }),
           catchError((error) => {
             return of(updateUserFailAction({ error: error.message }));
+          })
+        );
+      }
+      )
+    )
+  })
+
+  deleteUser$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(deleteUserAction),
+      withLatestFrom(this.store$),
+      switchMap(([action, storeState]) => {
+        return this.userService.deleteUsers(action.user).pipe(
+          map(() => {
+            return deleteUserSuccessAction();
+          }),
+          catchError((error) => {
+            return of(deleteUserFailAction({ error: error.message }));
           })
         );
       }
