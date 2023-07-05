@@ -15,8 +15,8 @@ let users = [
   },
   {
     id: 3,
-    firstname: 'Kamlesh',
-    lastname: 'Rani'
+    firstname: 'Gagandeep',
+    lastname: 'Bawa'
   }
 ]
 
@@ -34,7 +34,6 @@ const getUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
-    console.log("req.params.id", req.params.id)
     const user = users.filter((user) => user.id == req.params.id)
     if(user.length < 1) {
       res.send(new ApiResponse(

@@ -14,9 +14,7 @@ export class UserEffects {
     return this.actions$.pipe(
       ofType(getUsersAction),
       mergeMap(() => {
-        console.log("this.isLoaded", this.isLoaded)
         if(!this.isLoaded) {
-          console.log("inside this.isLoaded if")
           return this.userService.getUsers().pipe(
             map((inUsers) => {
               let users: UserModel[] = inUsers.data;
@@ -27,7 +25,6 @@ export class UserEffects {
             })
           );
         } else {
-          console.log("inside this.isLoaded else")
           return of(loadedUserSuccessAction({ users: this.users }))
         }
       }
