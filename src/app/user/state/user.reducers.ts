@@ -1,6 +1,6 @@
 import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import { UserModel, UserStateModel } from './user.model';
-import { deleteUserAction, saveUserAction, setCurrentUserAction, updateUserAction, removeCurrentUserAction } from "./user.action";
+import { deleteUserAction, saveUserAction, setCurrentUserAction, updateUserAction, removeCurrentUserAction, loadedUserSuccessAction, getUsersAction, loadedUserFailAction, insertUserSuccessAction, insertUserFailAction, updateUserFailAction, updateUserSuccessAction, deleteUserSuccessAction, deleteUserFailAction } from "./user.action";
 
 const initialUserState: UserStateModel = {
   currentUser: {
@@ -8,7 +8,9 @@ const initialUserState: UserStateModel = {
     firstname: '',
     lastname: ''
   },
-  usersList: []
+  usersListLoadedFlag: false,
+  usersList: [],
+  error: ''
 }
 
 const getUserFeatureState = createFeatureSelector<UserStateModel>('users')
@@ -20,6 +22,16 @@ export const getUserList = createSelector(
 export const getCurrentUser = createSelector(
   getUserFeatureState,
   (state) => state.currentUser
+)
+
+export const getUserListError = createSelector(
+  getUserFeatureState,
+  (state) => state.error
+)
+
+export const getUserListLoaded = createSelector(
+  getUserFeatureState,
+  (state) => state.usersListLoadedFlag
 )
 
 export const userReducer = createReducer<UserStateModel>(
@@ -54,6 +66,72 @@ export const userReducer = createReducer<UserStateModel>(
     return {
       ...state,
       currentUser: initialUserState.currentUser
+    }
+  }),
+  on(loadedUserSuccessAction, (state, action): UserStateModel => {
+    return {
+      ...state,
+      usersList: action.users,
+      error: '',
+      usersListLoadedFlag: action.users.length ? true : false
+    }
+  }),
+  on(loadedUserFailAction, (state, action): UserStateModel => {
+    return {
+      ...state,
+      usersList: [],
+      error: action.error
+    }
+  }),
+  on(insertUserSuccessAction, (state, action): UserStateModel => {
+    const updateUser = state.usersList.map((item) => {
+      // return action.user.id === item.id ? action.user : item
+      return 0 === item.id ? action.user : item
+    })
+    return {
+      ...state,
+      usersList: updateUser,
+      error: ''
+    }
+  }),
+  on(insertUserFailAction, (state, action): UserStateModel => {
+    return {
+      ...state,
+      error: action.error
+    }
+  }),
+  on(updateUserSuccessAction, (state, action): UserStateModel => {
+    const updateUser = state.usersList.map((item) => {
+      // return action.user.id === item.id ? action.user : item
+      return action.user.id === item.id ? action.user : item
+    })
+    return {
+      ...state,
+      usersList: updateUser,
+      error: ''
+    }
+  }),
+  on(updateUserFailAction, (state, action): UserStateModel => {
+    return {
+      ...state,
+      error: action.error
+    }
+  }),
+  on(deleteUserSuccessAction, (state, action): UserStateModel => {
+    const updateUser = state.usersList.map((item) => {
+      // return action.user.id === item.id ? action.user : item
+      return action.user.id === item.id ? action.user : item
+    })
+    return {
+      ...state,
+      usersList: updateUser,
+      error: ''
+    }
+  }),
+  on(deleteUserFailAction, (state, action): UserStateModel => {
+    return {
+      ...state,
+      error: action.error
     }
   }),
 )

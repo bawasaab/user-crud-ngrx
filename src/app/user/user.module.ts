@@ -8,6 +8,8 @@ import { StoreModule } from '@ngrx/store';
 import { userReducer } from './state/user.reducers';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserShellComponent } from './user-shell/user-shell.component';
+import { EffectsModule } from '@ngrx/effects';
+import { UserEffects } from './state/user.effect';
 
 
 @NgModule({
@@ -20,7 +22,10 @@ import { UserShellComponent } from './user-shell/user-shell.component';
     CommonModule,
     UserRoutingModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('users', userReducer)
+    StoreModule.forFeature('users', userReducer),
+    EffectsModule.forFeature([
+      UserEffects
+    ])
   ]
 })
 export class UserModule { }

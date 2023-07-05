@@ -7,6 +7,8 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { appReducer } from './state/app-state.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,12 +18,14 @@ import { appReducer } from './state/app-state.reducers';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     StoreModule.forRoot({'appState': appReducer}, {}),
     StoreDevtoolsModule.instrument({
       name: 'NGRX USER CRUD',
       maxAge: 25,
       logOnly: !isDevMode()
-    })
+    }),
+    EffectsModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]
