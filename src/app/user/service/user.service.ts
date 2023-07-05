@@ -36,4 +36,19 @@ export class UserService {
       catchError((e: Response) => throwError(e))
     );
   }
+
+  updateUsers(inData: UserModel) {
+    const url = `http://localhost:3000/users/${inData.id}`;
+    const body: UserModel = {
+      id: inData.id,
+      firstname: inData.firstname,
+      lastname: inData.lastname
+    }
+    return this.httpClient
+    .put(url, body)
+    .pipe(
+      map((e: any) => e),
+      catchError((e: Response) => throwError(e))
+    );
+  }
 }
