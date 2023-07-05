@@ -44,11 +44,18 @@ export class UserMasterComponent implements OnInit {
   // convenience getter for easy access to form fields
 	get f() { return this.form.controls; }
 
+	get firstname() { return this.form.get('firstname'); }
+
+	get lastname() { return this.form.get('lastname'); }
+
   // convenience getter for easy access to form values
   get frmValues(): UserModel { return this.form.value; }
 
   handleSubmit() {
     this.isSubmitted = true;
+    if(!this.form.valid) {
+      return
+    }
     if(this.uid > 0) {
       this.store.dispatch(updateUserAction({user: this.frmValues}))
       alert("User Updated")
