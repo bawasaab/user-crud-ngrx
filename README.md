@@ -2,9 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
 
-## Development server
+## Development angular server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+## Development expressjs server
+
+cd api
+Run `npm run start` for a dev server. Navigate to `http://localhost:3000/`. The api will welcomes with success response from the api
 
 ## Code scaffolding
 
