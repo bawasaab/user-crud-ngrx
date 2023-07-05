@@ -80,7 +80,7 @@ export class UserEffects {
       switchMap(([action, storeState]) => {
         return this.userService.deleteUsers(action.user).pipe(
           map(() => {
-            return deleteUserSuccessAction();
+            return deleteUserSuccessAction({user: action.user});
           }),
           catchError((error) => {
             return of(deleteUserFailAction({ error: error.message }));
