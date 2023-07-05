@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { UserService } from "../service/user.service";
-import { deleteUserAction, deleteUserFailAction, deleteUserSuccessAction, getUsersAction, insertUserFailAction, insertUserSuccessAction, loadedUserFailAction, loadedUserSuccessAction, saveUserAction, updateUserAction, updateUserFailAction, updateUserSuccessAction } from "./user.action";
+import { deleteUserAction, deleteUserFailAction, deleteUserSuccessAction, getUsersAction, insertUserFailAction, insertUserSuccessAction, loadedUserFailAction, loadedUserSuccessAction, saveUserAction, updateUserAction, updateUserFailAction, updateUserSuccessAction } from "./user.actions";
 import { catchError, map, mergeMap, of, switchMap, withLatestFrom } from "rxjs";
 import { UserModel } from "./user.model";
 import { Store } from "@ngrx/store";
-import { getUserList, getUserListLoaded } from "./user.reducers";
+import { getUserListLoaded, getUserList } from "./user.selectors";
 
 @Injectable()
 export class UserEffects {

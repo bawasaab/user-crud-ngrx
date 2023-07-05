@@ -9,7 +9,7 @@ import { userReducer } from './state/user.reducers';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserShellComponent } from './user-shell/user-shell.component';
 import { EffectsModule } from '@ngrx/effects';
-import { UserEffects } from './state/user.effect';
+import { UserEffects } from './state/user.effects';
 
 
 @NgModule({

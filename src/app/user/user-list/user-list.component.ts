@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UserModel } from '../state/user.model';
-import { getUserList, getUserListError } from '../state/user.reducers';
 import { Observable } from 'rxjs';
-import { setCurrentUserAction, deleteUserAction, getUsersAction } from '../state/user.action';
+import { setCurrentUserAction, deleteUserAction, getUsersAction } from '../state/user.actions';
+import { getUserList, getUserListError } from '../state/user.selectors';
 
 @Component({
   selector: 'app-user-list',

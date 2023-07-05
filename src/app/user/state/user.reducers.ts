@@ -1,6 +1,6 @@
-import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
-import { UserModel, UserStateModel } from './user.model';
-import { deleteUserAction, saveUserAction, setCurrentUserAction, updateUserAction, removeCurrentUserAction, loadedUserSuccessAction, getUsersAction, loadedUserFailAction, insertUserSuccessAction, insertUserFailAction, updateUserFailAction, updateUserSuccessAction, deleteUserSuccessAction, deleteUserFailAction } from "./user.action";
+import { createReducer, on } from "@ngrx/store";
+import { UserStateModel } from './user.model';
+import { deleteUserAction, saveUserAction, setCurrentUserAction, updateUserAction, removeCurrentUserAction, loadedUserSuccessAction, loadedUserFailAction, insertUserSuccessAction, insertUserFailAction, updateUserFailAction, updateUserSuccessAction, deleteUserSuccessAction, deleteUserFailAction } from "./user.actions";
 
 const initialUserState: UserStateModel = {
   currentUser: {
@@ -12,27 +12,6 @@ const initialUserState: UserStateModel = {
   usersList: [],
   error: ''
 }
-
-const getUserFeatureState = createFeatureSelector<UserStateModel>('users')
-export const getUserList = createSelector(
-  getUserFeatureState,
-  (state) => state.usersList
-)
-
-export const getCurrentUser = createSelector(
-  getUserFeatureState,
-  (state) => state.currentUser
-)
-
-export const getUserListError = createSelector(
-  getUserFeatureState,
-  (state) => state.error
-)
-
-export const getUserListLoaded = createSelector(
-  getUserFeatureState,
-  (state) => state.usersListLoadedFlag
-)
 
 export const userReducer = createReducer<UserStateModel>(
   initialUserState,

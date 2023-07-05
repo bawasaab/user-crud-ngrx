@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { removeCurrentUserAction, saveUserAction, updateUserAction } from '../state/user.action';
+import { removeCurrentUserAction, saveUserAction, updateUserAction } from '../state/user.actions';
 import { UserModel } from '../state/user.model';
-import { getCurrentUser } from '../state/user.reducers';
+import { getCurrentUser } from '../state/user.selectors';
 
 @Component({
   selector: 'app-user-master',
