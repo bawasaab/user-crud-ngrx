@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UserShellComponent } from './user/user-shell/user-shell.component';
 
+
 const routes: Routes = [
   {
     path: 'user',
