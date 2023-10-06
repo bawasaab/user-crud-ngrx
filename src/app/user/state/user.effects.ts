@@ -17,8 +17,12 @@ export class UserEffects {
         if(!this.isLoaded) {
           return this.userService.getUsers().pipe(
             map((inUsers) => {
-              let users: UserModel[] = inUsers.data;
-              return loadedUserSuccessAction({ users });
+              if(inUsers && inUsers.data) {
+                let users: UserModel[] = inUsers.data;
+                return loadedUserSuccessAction({ users });
+              } else {
+                throw "No data found"
+              }
             }),
             catchError((error) => {
               return of(loadedUserFailAction({ error: error.message }));

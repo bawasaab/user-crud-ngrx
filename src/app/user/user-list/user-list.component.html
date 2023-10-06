@@ -8,6 +8,11 @@
     <th>LastName</th>
     <th>Action</th>
   </tr>
+  <tr *ngIf="($users | async)?.length == 0">
+    <td colspan="4" style="color: red; text-decoration: solid; text-align: center;" >
+      Loading...
+    </td>
+  </tr>
   <tr *ngFor="let user of $users | async; index as i" (dblclick)="selectUser(user)">
     <td>{{ user.id }}</td>
     <td>{{ user.firstname }}</td>

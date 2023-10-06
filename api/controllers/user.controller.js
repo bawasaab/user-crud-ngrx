@@ -22,11 +22,14 @@ let users = [
 
 const getUsers = async (req, res) => {
   try {
-    res.send(new ApiResponse(
-      httpStatus.OK,
-      'get Users',
-      users
-    ))
+    setTimeout(() => {
+      console.log("Delayed for 3 second.");
+      res.send(new ApiResponse(
+        httpStatus.OK,
+        'get Users',
+        users
+      ))
+    }, 3000);
   } catch (ex) {
     res.send(new ApiError(httpStatus.BAD_REQUEST, appErrors(ex)))
   }
